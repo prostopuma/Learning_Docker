@@ -1,5 +1,3 @@
-FROM python:3.8
+FROM python:3
 
 COPY . .
-
-CMD [ "python", "./main.py" ]
