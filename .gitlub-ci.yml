@@ -1,0 +1,29 @@
+stages:
+  - verify
+  - deploy
+
+lint:
+  stage: verify
+  script:
+    - sudo docker build . -t interior_shop_web_lint:latest -f dockerfiles/verify/lint/Dockerfile
+    - sudo docker run interior_shop_web_lint
+  when: always
+  tags:
+    - check_intetior_backend_tag
+
+build:
+  stage: verify
+  script:
+    - sudo docker-compose build interior-web
+  when: always
+  tags:
+    - check_intetior_backend_tag
+
+deploy:
+  stage: deploy
+  script:
+    - sudo docker-compose up --build -d
+  only:
+    - main
+  tags:
+    - deploy_intetior_backend_tag
